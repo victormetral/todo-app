@@ -1,0 +1,8 @@
+# Dépendances Node.js
+node_modules/
+
+# Variables d'environnement (mots de passe, clés API)
+.env
+
+# Fichiers système macOS
+.DS_Store
