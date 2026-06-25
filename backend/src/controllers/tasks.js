@@ -1,8 +1,13 @@
 const pool = require('../config/db');
 
 const getAllTasks = async (req, res) => {
-  const result = await pool.query('SELECT * FROM tasks ORDER BY created_at DESC');
-  res.json(result.rows);
+  try {
+    const result = await pool.query('SELECT * FROM tasks ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erreur serveur lors de la récupération des tâches' });
+  }
 };
 
 const createTask = async (req, res) => {
