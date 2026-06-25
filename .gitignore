@@ -6,3 +6,7 @@ node_modules/
 
 # Fichiers système macOS
 .DS_Store
+
+# Dossiers générés par Postman
+postman/
+.postman/
