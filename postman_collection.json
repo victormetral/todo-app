@@ -1,0 +1,73 @@
+{
+  "info": {
+    "name": "Todo App API Tests",
+    "description": "Collection de tests pour l'API todo-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Task 1",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"title\":\"Apprendre Node.js\"}"},
+        "url": {"raw": "http://localhost:3000/api/tasks", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks"]}
+      }
+    },
+    {
+      "name": "2. Create Task 2",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"title\":\"Maîtriser Express\"}"},
+        "url": {"raw": "http://localhost:3000/api/tasks", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks"]}
+      }
+    },
+    {
+      "name": "3. Get All Tasks",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "http://localhost:3000/api/tasks", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks"]}
+      }
+    },
+    {
+      "name": "4. Update Task 1 (Complete)",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"title\":\"Node.js maîtrisé\",\"completed\":true}"},
+        "url": {"raw": "http://localhost:3000/api/tasks/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks", "1"]}
+      }
+    },
+    {
+      "name": "5. Update Task 2 (Partial)",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"completed\":true}"},
+        "url": {"raw": "http://localhost:3000/api/tasks/2", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks", "2"]}
+      }
+    },
+    {
+      "name": "6. Get All Tasks (After Updates)",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "http://localhost:3000/api/tasks", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks"]}
+      }
+    },
+    {
+      "name": "7. Delete Task 1",
+      "request": {
+        "method": "DELETE",
+        "url": {"raw": "http://localhost:3000/api/tasks/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks", "1"]}
+      }
+    },
+    {
+      "name": "8. Get All Tasks (After Delete)",
+      "request": {
+        "method": "GET",
+        "url": {"raw": "http://localhost:3000/api/tasks", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "tasks"]}
+      }
+    }
+  ]
+}
