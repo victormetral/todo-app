@@ -1,4 +1,4 @@
-const API_URL = '__API_URL__/api/tasks';
+const API_URL = '${API_URL}/api/tasks';
 
 async function loadTasks() {
   const res = await fetch(API_URL);
