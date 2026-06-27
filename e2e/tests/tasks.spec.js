@@ -134,3 +134,52 @@ test.describe('Suppression de tâches', () => {
     await expect(page.locator('.task-title', { hasText: 'À supprimer' })).not.toBeVisible();
   });
 });
+
+test.describe('Recherche', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await clearAllTasks(page);
+  });
+
+  test('filtre les tâches par titre', async ({ page }) => {
+    await createTask(page, 'Acheter du pain');
+    await createTask(page, 'Réunion client');
+    await createTask(page, 'Acheter des légumes');
+
+    await page.fill('#search-input', 'Acheter');
+    await expect(page.locator('.task-title', { hasText: 'Acheter du pain' })).toBeVisible();
+    await expect(page.locator('.task-title', { hasText: 'Acheter des légumes' })).toBeVisible();
+    await expect(page.locator('.task-title', { hasText: 'Réunion client' })).not.toBeVisible();
+  });
+
+  test('la recherche est insensible à la casse', async ({ page }) => {
+    await createTask(page, 'Tâche importante');
+
+    await page.fill('#search-input', 'tâche');
+    await expect(page.locator('.task-title', { hasText: 'Tâche importante' })).toBeVisible();
+  });
+
+  test('vider la recherche réaffiche toutes les tâches', async ({ page }) => {
+    await createTask(page, 'Tâche A');
+    await createTask(page, 'Tâche B');
+
+    await page.fill('#search-input', 'A');
+    await expect(page.locator('.task-title', { hasText: 'Tâche B' })).not.toBeVisible();
+
+    await page.fill('#search-input', '');
+    await expect(page.locator('.task-title', { hasText: 'Tâche A' })).toBeVisible();
+    await expect(page.locator('.task-title', { hasText: 'Tâche B' })).toBeVisible();
+  });
+
+  test('recherche combinée avec le filtre actives', async ({ page }) => {
+    await createTask(page, 'Réunion active');
+    await createTask(page, 'Réunion complète');
+    await page.locator('.task-title', { hasText: 'Réunion complète' }).click();
+    await page.waitForTimeout(500);
+
+    await page.click('[data-filter=active]');
+    await page.fill('#search-input', 'réunion');
+    await expect(page.locator('.task-title', { hasText: 'Réunion active' })).toBeVisible();
+    await expect(page.locator('.task-title', { hasText: 'Réunion complète' })).not.toBeVisible();
+  });
+});

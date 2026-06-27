@@ -16,6 +16,7 @@ Application de gestion de tâches fullstack, créée pour apprendre les bonnes p
 
 ## Fonctionnalités
 
+- Rechercher des tâches par titre en temps réel
 - Afficher toutes les tâches
 - Créer une tâche avec un niveau de priorité (haute / moyenne / basse) et une date d'échéance optionnelle
 - Modifier une tâche en ligne (titre, priorité, date d'échéance) via le bouton ✎
@@ -219,7 +220,7 @@ npx playwright install chromium
 npm test
 ```
 
-10 tests end-to-end couvrant les scénarios frontend :
+14 tests end-to-end couvrant les scénarios frontend :
 
 | Suite | Tests |
 |---|---|
@@ -227,6 +228,7 @@ npm test
 | Édition | Ouverture du formulaire, modification titre / priorité / date, annulation |
 | Filtres | Actives et complétées |
 | Suppression | Suppression d'une tâche |
+| Recherche | Filtrage par titre, insensibilité à la casse, remise à zéro, combinaison avec filtre |
 
 ## CI/CD
 
