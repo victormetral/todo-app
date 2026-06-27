@@ -9,7 +9,7 @@ Application de gestion de tâches fullstack, créée pour apprendre les bonnes p
 | Backend | Node.js + Express |
 | Base de données | PostgreSQL 16 |
 | Frontend | HTML / CSS / JS vanilla (servi par nginx) |
-| Tests | Jest |
+| Tests | Jest (unitaires) + Playwright (E2E) |
 | Conteneurisation | Docker + Docker Compose |
 | CI/CD | GitHub Actions |
 | Registre d'images | GitHub Container Registry (ghcr.io) |
@@ -135,9 +135,14 @@ todo-app/
 │   ├── style.css
 │   ├── app.js                     # Appels API et rendu DOM
 │   └── Dockerfile.frontend
+├── e2e/
+│   ├── tests/
+│   │   └── tasks.spec.js          # Tests E2E Playwright
+│   ├── playwright.config.js
+│   └── package.json
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml                 # Tests automatiques
+│       ├── ci.yml                 # Tests unitaires + E2E
 │       └── cd.yml                 # Build et push Docker
 └── docker-compose.yml
 ```
@@ -148,6 +153,7 @@ todo-app/
 - **API REST** : CRUD complet avec Express
 - **Base de données** : PostgreSQL avec requêtes paramétrées (protection injection SQL)
 - **Tests unitaires** : Jest avec mocks des dépendances
+- **Tests E2E** : Playwright — scénarios complets sur navigateur headless
 - **Conteneurisation** : Docker multi-conteneurs avec Docker Compose
 - **CI/CD** : GitHub Actions — tests automatiques + build et publication d'images Docker
 
@@ -226,7 +232,10 @@ npm test
 
 ### CI — Tests automatiques
 
-À chaque push sur `main` ou pull request, GitHub Actions lance les tests Jest.
+À chaque push sur `main` ou pull request, GitHub Actions lance deux jobs en parallèle :
+
+- **`unit-tests`** : tests Jest (backend)
+- **`e2e-tests`** : démarre les conteneurs Docker, puis lance les tests Playwright — le rapport est uploadé en artifact si un test échoue
 
 ### CD — Build et publication Docker
 
