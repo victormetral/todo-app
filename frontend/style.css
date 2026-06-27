@@ -31,6 +31,7 @@ h1 {
   display: flex;
   gap: 8px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 #task-input {
@@ -39,6 +40,15 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+}
+
+#priority-select {
+  padding: 10px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: white;
 }
 
 button[type="submit"] {
@@ -87,15 +97,29 @@ button[type="submit"] {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.task-item span {
+.task-title {
   flex: 1;
   cursor: pointer;
 }
 
-.task-item.completed span {
+.task-item.completed .task-title {
   text-decoration: line-through;
   color: #aaa;
 }
+
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.priority-high   { background: #fee2e2; color: #b91c1c; }
+.priority-medium { background: #fef3c7; color: #b45309; }
+.priority-low    { background: #dcfce7; color: #15803d; }
 
 .delete-btn {
   background: none;
