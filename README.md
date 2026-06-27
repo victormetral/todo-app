@@ -193,12 +193,34 @@ Copier `.env.example` à la racine et renommer en `.env` :
 
 ## Tests
 
+### Tests unitaires (Jest)
+
 ```bash
 cd backend
 npm test
 ```
 
 20 tests unitaires couvrant toutes les fonctions du service (`taskService.js`), incluant la validation de la priorité et de la date d'échéance.
+
+### Tests E2E (Playwright)
+
+> Prérequis : les conteneurs Docker doivent être démarrés (`docker compose up`).
+
+```bash
+cd e2e
+npm install
+npx playwright install chromium
+npm test
+```
+
+10 tests end-to-end couvrant les scénarios frontend :
+
+| Suite | Tests |
+|---|---|
+| Création | Tâche simple, avec priorité haute + date, date dépassée en rouge |
+| Édition | Ouverture du formulaire, modification titre / priorité / date, annulation |
+| Filtres | Actives et complétées |
+| Suppression | Suppression d'une tâche |
 
 ## CI/CD
 
