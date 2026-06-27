@@ -47,12 +47,30 @@ npm install
 
 # 3. Configurer les variables d'environnement
 cp .env.example .env
-# Éditer .env avec tes valeurs locales
+nano .env
+```
 
-# 4. Créer la table dans PostgreSQL
-psql -U <user> -d <database> -f src/db/init.sql
+Renseigner les valeurs suivantes :
 
-# 5. Lancer le serveur
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=todo_db
+DB_USER=<votre_utilisateur_postgres>
+DB_PASSWORD=<votre_mot_de_passe_postgres>
+PORT=3000
+```
+
+> Pour connaître votre utilisateur PostgreSQL : `psql -c "\du"`
+
+```bash
+# 4. Créer la base de données
+createdb -U <votre_utilisateur_postgres> todo_db
+
+# 5. Créer la table tasks
+psql -U <votre_utilisateur_postgres> -d todo_db -f src/db/init.sql
+
+# 6. Lancer le serveur
 node server.js
 ```
 
@@ -62,7 +80,7 @@ Le frontend peut être ouvert directement dans un navigateur en ouvrant `fronten
 
 ### Prérequis
 
-- Docker Desktop
+- Docker Desktop installé et démarré
 
 ### Étapes
 
@@ -79,8 +97,56 @@ cp .env.example .env
 docker compose up --build
 ```
 
+### Vérification
+
+Une fois les conteneurs démarrés :
+
 - Frontend : http://localhost:8080
-- API : http://localhost:3000
+- API : http://localhost:3000/api/tasks
+
+Si tout fonctionne, l'API retourne une liste JSON (vide `[]` ou avec des tâches).
+
+## Structure du projet
+
+```
+todo-app/
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── db.js              # Pool de connexion PostgreSQL
+│   │   ├── controllers/
+│   │   │   └── tasks.js           # Gestion des requêtes HTTP
+│   │   ├── routes/
+│   │   │   └── tasks.js           # Définition des routes Express
+│   │   ├── services/
+│   │   │   ├── taskService.js     # Logique métier
+│   │   │   └── __tests__/
+│   │   │       └── taskService.test.js
+│   │   └── db/
+│   │       └── init.sql           # Script de création de la table
+│   ├── server.js                  # Point d'entrée Express
+│   ├── Dockerfile.backend
+│   └── package.json
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   ├── app.js                     # Appels API et rendu DOM
+│   └── Dockerfile.frontend
+├── .github/
+│   └── workflows/
+│       ├── ci.yml                 # Tests automatiques
+│       └── cd.yml                 # Build et push Docker
+└── docker-compose.yml
+```
+
+## Compétences travaillées
+
+- **Architecture en couches** : séparation routes / controllers / services / db
+- **API REST** : CRUD complet avec Express
+- **Base de données** : PostgreSQL avec requêtes paramétrées (protection injection SQL)
+- **Tests unitaires** : Jest avec mocks des dépendances
+- **Conteneurisation** : Docker multi-conteneurs avec Docker Compose
+- **CI/CD** : GitHub Actions — tests automatiques + build et publication d'images Docker
 
 ## Variables d'environnement
 
@@ -89,13 +155,13 @@ Copier `.env.example` à la racine et renommer en `.env` :
 | Variable | Description | Exemple |
 |---|---|---|
 | `POSTGRES_DB` | Nom de la base de données (conteneur PostgreSQL) | `todo_db` |
-| `POSTGRES_USER` | Utilisateur PostgreSQL | `postgres` |
-| `POSTGRES_PASSWORD` | Mot de passe PostgreSQL | `changeme` |
+| `POSTGRES_USER` | Utilisateur PostgreSQL | `votre_utilisateur_postgres` |
+| `POSTGRES_PASSWORD` | Mot de passe PostgreSQL | `votre_mot_de_passe_postgres` |
 | `DB_HOST` | Hôte de la base de données | `db` (nom du service Docker) |
 | `DB_PORT` | Port PostgreSQL | `5432` |
 | `DB_NAME` | Nom de la base de données (backend) | `todo_db` |
-| `DB_USER` | Utilisateur (backend) | `postgres` |
-| `DB_PASSWORD` | Mot de passe (backend) | `changeme` |
+| `DB_USER` | Utilisateur (backend) | `votre_utilisateur_postgres` |
+| `DB_PASSWORD` | Mot de passe (backend) | `votre_mot_de_passe_postgres` |
 | `PORT` | Port du serveur backend | `3000` |
 
 ## Routes API
