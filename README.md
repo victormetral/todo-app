@@ -18,7 +18,7 @@ Application de gestion de tâches fullstack, créée pour apprendre les bonnes p
 
 - Afficher toutes les tâches
 - Créer une tâche avec un niveau de priorité (haute / moyenne / basse) et une date d'échéance optionnelle
-- Modifier une tâche (mise à jour partielle — seuls les champs fournis sont modifiés)
+- Modifier une tâche en ligne (titre, priorité, date d'échéance) via le bouton ✎
 - Supprimer une tâche
 - Filtrer les tâches par statut (toutes / actives / complétées)
 - Tri automatique par priorité (haute → moyenne → basse)
