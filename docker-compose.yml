@@ -33,6 +33,8 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - "8080:8080"
+    environment:
+      API_URL: ${API_URL}
 
 volumes:
   postgres_data:
