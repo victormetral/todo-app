@@ -163,6 +163,7 @@ Copier `.env.example` à la racine et renommer en `.env` :
 | `DB_USER` | Utilisateur (backend) | `votre_utilisateur_postgres` |
 | `DB_PASSWORD` | Mot de passe (backend) | `votre_mot_de_passe_postgres` |
 | `PORT` | Port du serveur backend | `3000` |
+| `API_URL` | URL du backend appelée par le frontend | `http://localhost:3000` |
 
 ## Routes API
 
