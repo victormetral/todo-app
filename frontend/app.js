@@ -2,6 +2,7 @@ const API_URL = '__API_URL__/api/tasks';
 
 let allTasks = [];
 let currentFilter = 'all';
+let searchQuery = '';
 let editingId = null;
 
 async function loadTasks() {
@@ -60,9 +61,11 @@ function renderTasks() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
 
+  const q = searchQuery.toLowerCase();
   const filtered = allTasks.filter(task => {
-    if (currentFilter === 'active') return !task.completed;
-    if (currentFilter === 'completed') return task.completed;
+    if (currentFilter === 'active' && task.completed) return false;
+    if (currentFilter === 'completed' && !task.completed) return false;
+    if (q && !task.title.toLowerCase().includes(q)) return false;
     return true;
   });
 
@@ -180,6 +183,11 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
   input.value = '';
   document.getElementById('due-date-input').value = '';
   await createTask(title, priority, dueDate);
+});
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  renderTasks();
 });
 
 loadTasks();

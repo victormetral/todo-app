@@ -62,6 +62,15 @@ button[type="submit"] {
   font-size: 1rem;
 }
 
+#search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
 .filters {
   display: flex;
   gap: 8px;
