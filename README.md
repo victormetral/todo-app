@@ -17,11 +17,12 @@ Application de gestion de tâches fullstack, créée pour apprendre les bonnes p
 ## Fonctionnalités
 
 - Afficher toutes les tâches
-- Créer une tâche avec un niveau de priorité (haute / moyenne / basse)
+- Créer une tâche avec un niveau de priorité (haute / moyenne / basse) et une date d'échéance optionnelle
 - Modifier une tâche (mise à jour partielle — seuls les champs fournis sont modifiés)
 - Supprimer une tâche
 - Filtrer les tâches par statut (toutes / actives / complétées)
 - Tri automatique par priorité (haute → moyenne → basse)
+- Affichage de la date d'échéance, en rouge si dépassée
 
 ## Architecture backend
 
@@ -182,11 +183,13 @@ Copier `.env.example` à la racine et renommer en `.env` :
 {
   "title": "Ma tâche",
   "completed": false,
-  "priority": "high"
+  "priority": "high",
+  "due_date": "2026-12-31"
 }
 ```
 
-Les valeurs valides pour `priority` sont : `"low"`, `"medium"`, `"high"` (défaut : `"medium"`).
+- `priority` : `"low"`, `"medium"`, `"high"` (défaut : `"medium"`)
+- `due_date` : date au format `YYYY-MM-DD`, optionnelle (défaut : `null`)
 
 ## Tests
 
@@ -195,7 +198,7 @@ cd backend
 npm test
 ```
 
-17 tests unitaires couvrant toutes les fonctions du service (`taskService.js`), incluant la validation de la priorité.
+20 tests unitaires couvrant toutes les fonctions du service (`taskService.js`), incluant la validation de la priorité et de la date d'échéance.
 
 ## CI/CD
 
