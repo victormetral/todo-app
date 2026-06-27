@@ -1,9 +1,12 @@
 const API_URL = '__API_URL__/api/tasks';
 
+let allTasks = [];
+let currentFilter = 'all';
+
 async function loadTasks() {
   const res = await fetch(API_URL);
-  const tasks = await res.json();
-  renderTasks(tasks);
+  allTasks = await res.json();
+  renderTasks();
 }
 
 async function createTask(title) {
@@ -29,11 +32,17 @@ async function deleteTask(id) {
   loadTasks();
 }
 
-function renderTasks(tasks) {
+function renderTasks() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
 
-  tasks.forEach(task => {
+  const filtered = allTasks.filter(task => {
+    if (currentFilter === 'active') return !task.completed;
+    if (currentFilter === 'completed') return task.completed;
+    return true;
+  });
+
+  filtered.forEach(task => {
     const li = document.createElement('li');
     li.className = 'task-item' + (task.completed ? ' completed' : '');
 
@@ -51,6 +60,15 @@ function renderTasks(tasks) {
     list.appendChild(li);
   });
 }
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTasks();
+  });
+});
 
 document.getElementById('task-form').addEventListener('submit', async (e) => {
   e.preventDefault();
