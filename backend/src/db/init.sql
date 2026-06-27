@@ -3,5 +3,6 @@ CREATE TABLE IF NOT EXISTS tasks (
   title      VARCHAR(255) NOT NULL,
   completed  BOOLEAN      NOT NULL DEFAULT FALSE,
   priority   VARCHAR(10)  NOT NULL DEFAULT 'medium' CHECK (priority IN ('low', 'medium', 'high')),
+  due_date   DATE         NULL,
   created_at TIMESTAMP    NOT NULL DEFAULT NOW()
 );

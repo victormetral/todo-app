@@ -12,7 +12,7 @@ const getAllTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
   try {
-    const task = await taskService.createTask(req.body.title, req.body.priority);
+    const task = await taskService.createTask(req.body.title, req.body.priority, req.body.due_date);
     res.status(201).json(task);
   } catch (error) {
     console.error(error);
@@ -22,7 +22,7 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
-    const task = await taskService.updateTask(req.params.id, req.body.title, req.body.completed, req.body.priority);
+    const task = await taskService.updateTask(req.params.id, req.body.title, req.body.completed, req.body.priority, req.body.due_date);
     res.json(task);
   } catch (error) {
     console.error(error);

@@ -42,7 +42,8 @@ h1 {
   font-size: 1rem;
 }
 
-#priority-select {
+#priority-select,
+#due-date-input {
   padding: 10px 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -97,14 +98,30 @@ button[type="submit"] {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.task-title {
+.task-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-title {
   cursor: pointer;
 }
 
 .task-item.completed .task-title {
   text-decoration: line-through;
   color: #aaa;
+}
+
+.due-date {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+.due-date.overdue {
+  color: #dc2626;
+  font-weight: 600;
 }
 
 .priority-badge {
